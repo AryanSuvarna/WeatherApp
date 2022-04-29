@@ -64,11 +64,11 @@ locationIcon.addEventListener("click", function(event){
 
 function showError(error) {
     notificationElement.style.display="block"
-    notificationElement.innerHTML=`<p> ${error.message} </p>`
+    notificationElement.innerHTML=`<p> Error: ${error.message}</p>`
 }
 
 function getSearchWeather(city,country){
-    let api= `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${key}`
+    let api= `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${key}`
 
     fetch(api)
     .then(function(response){
@@ -88,7 +88,7 @@ function getSearchWeather(city,country){
 }
 
 function getWeather(latitude,longitude){
-    let api= `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`
+    let api= `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`
 
     fetch(api)
     .then(function(response){
