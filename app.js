@@ -41,7 +41,7 @@ weather.temperature = {
 
 const KELVIN=273
 const key ="bd5a5272e3b23f27b0a0425e1f37d01e"
-// WHAT IS A NAVIGATOR????
+
 if("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(setPosition,showError)
 }
@@ -64,7 +64,7 @@ locationIcon.addEventListener("click", function(event){
 
 function showError(error) {
     notificationElement.style.display="block"
-    notificationElement.innerHTML=`<p> Error: ${error.message}</p>`
+    notificationElement.innerHTML=`<p> Error: git s${error.message}</p>`
 }
 
 function getSearchWeather(city,country){
