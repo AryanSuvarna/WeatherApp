@@ -41,7 +41,7 @@ weather.temperature = {
 
 const KELVIN=273
 const key ="bd5a5272e3b23f27b0a0425e1f37d01e"
-// WHAT IS A NAVIGATOR????
+
 if("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(setPosition,showError)
 }
@@ -68,7 +68,7 @@ function showError(error) {
 }
 
 function getSearchWeather(city,country){
-    let api= `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${key}`
+    let api= `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${key}`
 
     fetch(api)
     .then(function(response){
@@ -88,7 +88,7 @@ function getSearchWeather(city,country){
 }
 
 function getWeather(latitude,longitude){
-    let api= `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`
+    let api= `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`
 
     fetch(api)
     .then(function(response){
