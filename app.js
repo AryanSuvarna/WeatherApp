@@ -64,7 +64,7 @@ locationIcon.addEventListener("click", function(event){
 
 function showError(error) {
     notificationElement.style.display="block"
-    notificationElement.innerHTML=`<p> Error: git s${error.message}</p>`
+    notificationElement.innerHTML=`<p> Error: ${error.message}</p>`
 }
 
 function getSearchWeather(city,country){
