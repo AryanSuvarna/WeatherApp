@@ -7,7 +7,8 @@ countries that have the same city names.As a result, I decided to implement to a
 are still some bugs that need to be fixed but this is roughly what it is going to look like. I also plan on adding more features such as a hourly forecast, 7 day
 forecast and potentially some alerts.
 
-# Things I learned
+## Things I learned
 
 - Basics of HTML, CSS, Javascript
 - How to make API calls
+- This was also my first real project where I uploaded to GitHub so I had to learn Git and all of its respective commands
