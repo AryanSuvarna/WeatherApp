@@ -65,6 +65,10 @@ locationIcon.addEventListener("click", function(event){
 function showError(error) {
     notificationElement.style.display="block"
     notificationElement.innerHTML=`<p> Error: ${error.message}</p>`
+    iconElement.innerHTML=`<img src="icons/unknownIcon.png" style="width:128px;height:128px;">`
+    tempElement.innerHTML=`- °<span>C<span>`
+    descElement.innerHTML=`-`
+    locationElement.innerHTML=`-`
 }
 
 function getSearchWeather(city,country){
@@ -76,6 +80,9 @@ function getSearchWeather(city,country){
         return data
     })
     .then(function(data){
+        if (data.cod === "404") {
+            showError(data)
+        }
         weather.temperature.value=Math.floor(data.main.temp -KELVIN)
         weather.description=data.weather[0].description
         weather.iconID=data.weather[0].icon
@@ -109,6 +116,7 @@ function getWeather(latitude,longitude){
 
 // CAREFUL!!! GOTTA USE BACKTICKS NOT QUOTATION MARKS
 function displayWeather() {
+    notificationElement.style.display="none"
     iconElement.innerHTML=`<img src="icons/${weather.iconID}.png" style="width:128px;height:128px;">`
     tempElement.innerHTML=`${weather.temperature.value} °<span>C<span>`
     descElement.innerHTML=weather.description
