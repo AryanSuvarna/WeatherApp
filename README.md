@@ -13,3 +13,7 @@ forecast and potentially some alerts.
 - How to make API calls
 - How to work with data in JSON format
 - This was also my first real project where I uploaded to GitHub so I had to learn Git and all of its respective commands
+
+## Credits
+
+https://www.youtube.com/watch?v=buS3mweBWCA

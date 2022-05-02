@@ -17,8 +17,8 @@ input1.addEventListener("keyup", function(event) {
     if(event.keyCode ===13){
         event.preventDefault();
 
-        city=input1.value
-        console.log(city)
+        weather.city=input1.value
+        console.log(weather.city)
         input2.focus()
     }
 })
@@ -27,9 +27,10 @@ input2.addEventListener("keyup", function(event) {
     if(event.keyCode ===13){
         event.preventDefault();
 
-        country=input2.value
-        getSearchWeather(city,country)
-        console.log(country)
+        weather.country=input2.value
+        console.log(weather.country)
+        getLatLong()
+        
     }
 })
 
@@ -53,26 +54,69 @@ else {
 function setPosition(position) {
     latitude = position.coords.latitude
     longitude = position.coords.longitude
-
+    
+    getName(latitude,longitude)
     getWeather(latitude,longitude)
 }
 
+// get name of location given the lat. and lon.
+function getName(){
+    let api = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&appid=${key}`
+
+    fetch(api)
+    .then(function(response){
+        let data = response.json()
+        return data
+        
+    })
+    .then(function(data){
+        weather.city = data[0].name
+        weather.country = data[0].country
+    })
+}
+
 locationIcon.addEventListener("click", function(event){
-    console.log("HELLO")
     getWeather(latitude,longitude)
 })
 
-function showError(error) {
+function showError() {
     notificationElement.style.display="block"
-    notificationElement.innerHTML=`<p> Error: ${error.message}</p>`
+    notificationElement.innerHTML=`<p> Error: User denied geolocation or invalid location</p>`
     iconElement.innerHTML=`<img src="icons/unknownIcon.png" style="width:128px;height:128px;">`
     tempElement.innerHTML=`- °<span>C<span>`
     descElement.innerHTML=`-`
     locationElement.innerHTML=`-`
 }
 
-function getSearchWeather(city,country){
-    let api= `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${key}`
+// gets the longitude and latitude of a city for the API call that provides all the info (current, hourly, alerts)
+function getLatLong(){
+    console.log(weather.city)
+    console.log(weather.country)
+    let api = `https://api.openweathermap.org/geo/1.0/direct?q=${weather.city},${weather.country}&appid=${key}`
+
+    fetch(api)
+    .then(function(response){
+        let data = response.json()
+        return data
+    })
+    .then(function(data){
+        // finds length of json file
+        var count = Object.keys(data).length
+        if (count === 0) {
+            showError()
+        }
+        weather.latitude = data[0].lat
+        weather.longitude =data[0].lon
+        console.log(weather.latitude)
+        console.log(weather.longitude)
+    })
+    .then(function(){
+        getSearchWeather()
+    })
+}
+
+function getSearchWeather(){
+    let api= `https://api.openweathermap.org/data/2.5/onecall?lat=${weather.latitude}&lon=${weather.longitude}&exclude=minutely,daily&appid=${key}`
 
     fetch(api)
     .then(function(response){
@@ -81,13 +125,11 @@ function getSearchWeather(city,country){
     })
     .then(function(data){
         if (data.cod === "404") {
-            showError(data)
+            showError()
         }
-        weather.temperature.value=Math.floor(data.main.temp -KELVIN)
-        weather.description=data.weather[0].description
-        weather.iconID=data.weather[0].icon
-        weather.city=data.name
-        weather.country=data.sys.country
+        weather.temperature.value=Math.floor(data.current.temp -KELVIN)
+        weather.description=data.current.weather[0].description
+        weather.iconID=data.current.weather[0].icon
     })
     .then(function(){
         displayWeather()
@@ -95,7 +137,7 @@ function getSearchWeather(city,country){
 }
 
 function getWeather(latitude,longitude){
-    let api= `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`
+    let api= `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,daily&appid=${key}`
 
     fetch(api)
     .then(function(response){
@@ -103,22 +145,24 @@ function getWeather(latitude,longitude){
         return data
     })
     .then(function(data){
-        weather.temperature.value=Math.floor(data.main.temp -KELVIN)
-        weather.description=data.weather[0].description
-        weather.iconID=data.weather[0].icon
-        weather.city=data.name
-        weather.country=data.sys.country
+        // 
+        weather.temperature.value=Math.floor(data.current.temp -KELVIN)
+        weather.description=data.current.weather[0].description
+        weather.iconID=data.current.weather[0].icon
     })
     .then(function(){
         displayWeather()
     })
 }
 
+
 // CAREFUL!!! GOTTA USE BACKTICKS NOT QUOTATION MARKS
 function displayWeather() {
+    getName()
+    document.body.style.backgroundImage = `url('https://source.unsplash.com/1600x900/?${weather.city}')`
     notificationElement.style.display="none"
     iconElement.innerHTML=`<img src="icons/${weather.iconID}.png" style="width:128px;height:128px;">`
     tempElement.innerHTML=`${weather.temperature.value} °<span>C<span>`
     descElement.innerHTML=weather.description
-    locationElement.innerHTML=`${weather.city}, ${weather.country}`
+    locationElement.innerHTML=`${weather.city}, <span>${weather.country}<span>`
 }
