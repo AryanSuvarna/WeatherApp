@@ -17,3 +17,5 @@ forecast and potentially some alerts.
 ## Credits
 
 https://www.youtube.com/watch?v=buS3mweBWCA
+https://www.youtube.com/watch?v=WZNG8UomjSI
+https://www.youtube.com/watch?v=fffX2ge3wHs
