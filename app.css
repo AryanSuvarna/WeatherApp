@@ -15,6 +15,7 @@ body{
 .container {
     width: 70%;
     background-color: white;
+    opacity: 0.93;
     align-self: center;
     display: block;
     margin: 100px auto;
@@ -25,6 +26,7 @@ body{
 
 /* use dot here because it is the class type. */
 .app-title {
+    opacity: 1;
     width: 100%;
     height: 180px;
     border-radius: 10px 10px 0 0;
@@ -35,6 +37,7 @@ body{
 }
 
 .app-title p {
+    opacity: 1;
     text-align: center;
     padding: 15px;
     margin: 0 auto;
@@ -43,6 +46,7 @@ body{
 }
 /* use # for id's */
 #search1 {
+    opacity: 1;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -51,22 +55,25 @@ body{
     height: 35px;
     border-radius: 5px;
     outline: none;
-    border: 3px solid steelblue;
+    border: 3px solid black;
 }
 
 #search2 {
+    opacity: 1;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 5px;
     padding: 5px;
     width: 30%;
     height: 35px;
     border-radius: 5px;
     outline: none;
-    border: 3px solid steelblue;
+    border: 3px solid black;
 }
 
 .notification {
+    opacity: 1;
     background-color: white;
     display: none;
 }
@@ -79,14 +86,8 @@ body{
     padding: 10px 0;
 }
 
-/* .weather-container {
-    width: 100%;
-    height: 250px;
-    background-color: white;
-    margin-top: 20px;
-} */
-
 .weather-icon{
+    opacity: 1;
     width: 100%;
     height: 120px;
 }
@@ -170,40 +171,79 @@ div.relative {
     padding-top: 5px;
     padding-bottom: 340px;
     height: 150px;
-  }
+    border-left: 0.25px solid black;
+    border-right: 0.25px solid black;
+}
 
 /* Clear floats after the columns */
 .row:after {
     content: "";
     display: table;
     clear: both;
-  }
+}
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1100px) {
     .column {
       width: 100%;
     }
-  }
+}
 
 h2 {text-align: center;}
 
 
-div.scrollmenu {
+.scrollmenu {
     background-color: white;
     overflow: auto;
     white-space: nowrap;
-    margin-left: 30px;
-  }
+    margin-left: 30px;}
   
-  div.scrollmenu p {
+.scrollmenu div{
     display: inline-block;
     color: black;
-    text-align: center;
-    padding: 100px;
+    text-align: left;
+    padding: 0px 10px;
+    margin: 0 5px;
     border-radius: 10px;
-    border: 3px solid steelblue;
+    border: 3px solid black;
 
     text-decoration: none;
-  }
-  
+}
+
+
+.hourly-container {
+    opacity: 1;
+    width: 150px;
+    height: 250px;
+    background-color: white;
+}
+
+.hourly-container h1 {
+    padding: 0;
+    margin: 0;
+    color: darkgray;
+    font-size: 2.7em;
+    text-align: center;
+}
+
+.hourly-container h2 {
+    padding: 0;
+    margin: 0;
+    color: darkgray;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.hourly-container span {
+    color: darkgray;
+    font-size: 0.5em; 
+}
+
+
+.hourly-container p {
+    padding: 4px  0px 0px 0px;
+    margin: 0;
+    color: darkgray;
+    font-size: .8em;
+    text-align: center;
+}

@@ -8,6 +8,7 @@ const notificationElement = document.querySelector(".notification")
 
 var input1 = document.getElementById("search1")
 var input2 = document.getElementById("search2")
+var hourly = document.getElementById("hourly-forecast")
 let city = ""
 let country= ""
 let latitude = 0.0
@@ -76,10 +77,12 @@ function getName(){
 }
 
 locationIcon.addEventListener("click", function(event){
+    hourly.innerHTML= ""; //removes all childs elements of hourly
     getWeather(latitude,longitude)
 })
 
 function showError() {
+    hourly.innerHTML= ""; //removes all childs elements of hourlyK
     notificationElement.style.display="block"
     notificationElement.innerHTML=`<p> Error: User denied geolocation or invalid location</p>`
     iconElement.innerHTML=`<img src="icons/unknownIcon.png" style="width:128px;height:128px;">`
@@ -116,6 +119,7 @@ function getLatLong(){
 }
 
 function getSearchWeather(){
+    hourly.innerHTML= ""; //removes all childs elements of hourly
     let api= `https://api.openweathermap.org/data/2.5/onecall?lat=${weather.latitude}&lon=${weather.longitude}&exclude=minutely,daily&appid=${key}`
 
     fetch(api)
@@ -130,6 +134,17 @@ function getSearchWeather(){
         weather.temperature.value=Math.floor(data.current.temp -KELVIN)
         weather.description=data.current.weather[0].description
         weather.iconID=data.current.weather[0].icon
+
+        // for each hour
+        for (x=0; x<24;x++){
+            let currentTime = data.hourly[x]
+            let time = timestampToTime(currentTime.dt)
+            let description = currentTime.weather[0].description
+            let icon = currentTime.weather[0].icon
+            let temp = Math.floor(currentTime.temp - KELVIN)
+            let feelsLike = Math.floor(currentTime.feels_like - KELVIN)
+            displayWeatherHourly(time,description, icon, temp, feelsLike)
+        }
     })
     .then(function(){
         displayWeather()
@@ -137,6 +152,7 @@ function getSearchWeather(){
 }
 
 function getWeather(latitude,longitude){
+    hourly.innerHTML= ""; //removes all childs elements of hourly
     let api= `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,daily&appid=${key}`
 
     fetch(api)
@@ -145,19 +161,37 @@ function getWeather(latitude,longitude){
         return data
     })
     .then(function(data){
-        // 
         weather.temperature.value=Math.floor(data.current.temp -KELVIN)
         weather.description=data.current.weather[0].description
         weather.iconID=data.current.weather[0].icon
+
+        // for each hour
+        for (x=0; x<24;x++){
+            let currentTime = data.hourly[x]
+            let time = timestampToTime(currentTime.dt)
+            let description = currentTime.weather[0].description
+            let icon = currentTime.weather[0].icon
+            let temp = Math.floor(currentTime.temp - KELVIN)
+            let feelsLike = Math.floor(currentTime.feels_like - KELVIN)
+            displayWeatherHourly(time,description, icon, temp, feelsLike)
+        }
     })
     .then(function(){
         displayWeather()
     })
 }
 
-
+let displayWeatherHourly = function(time,description, icon, temp, feelsLike) {
+    let out = "<div class='hourly-container'><h2>" + time + "</h2>"
+    out += `<div1 class = "weather-icon"> <img src="icons/${icon}.png" style="width:128px;height:128px;"></div1>`
+    out += "<h1>" + temp + "°<span>C</span></h1>";
+    out += "<p>Feels like: " + feelsLike + "°C</p>";
+    out += "<p>" + description + "</p></div>";
+    hourly.innerHTML += out;
+}
 // CAREFUL!!! GOTTA USE BACKTICKS NOT QUOTATION MARKS
 function displayWeather() {
+    // current weather
     getName()
     document.body.style.backgroundImage = `url('https://source.unsplash.com/1600x900/?${weather.city}')`
     notificationElement.style.display="none"
@@ -165,4 +199,17 @@ function displayWeather() {
     tempElement.innerHTML=`${weather.temperature.value} °<span>C<span>`
     descElement.innerHTML=weather.description
     locationElement.innerHTML=`${weather.city}, <span>${weather.country}<span>`
+}
+
+
+let timestampToTime = function(timeStamp) {
+    let date = new Date(timeStamp * 1000);
+    let hours = date.getHours();
+    let minutes = "";
+    if (date.getMinutes() < 10) {
+        minutes = "0" + date.getMinutes();
+    } else {
+        minutes = date.getMinutes();
+    }
+    return hours + ":" + minutes;
 }
