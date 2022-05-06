@@ -189,14 +189,18 @@ div.relative {
     }
 }
 
-h2 {text-align: center;}
+h2 {
+    text-align: center;
+}
 
 
 .scrollmenu {
     background-color: white;
     overflow: auto;
     white-space: nowrap;
-    margin-left: 30px;}
+    margin-left: 15px;
+    margin-right: 5px;
+}
   
 .scrollmenu div{
     display: inline-block;
@@ -246,4 +250,29 @@ h2 {text-align: center;}
     color: darkgray;
     font-size: .8em;
     text-align: center;
+}
+
+.event {
+    margin: 0 10px;
+    text-align: center;
+    border: 2px solid red;
+    color: red;
+}
+
+.sender {
+    padding: 3px;
+    margin-left: 3px;
+    text-align: center;
+    color: red;
+}
+
+.alert-description {
+    margin: 10px 15px;
+    text-align: left;
+    font-size: 0.8em;
+}
+
+.alert-description p {
+    margin-bottom: 5px;
+    text-align: left;
 }

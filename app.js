@@ -5,6 +5,11 @@ const tempElement = document.querySelector(".temperature-value p")
 const descElement = document.querySelector(".temperature-description p")
 const locationElement = document.querySelector(".location p")
 const notificationElement = document.querySelector(".notification")
+const eventElement = document.querySelector(".event")
+const alertElement = document.querySelector(".alert-description ")
+const senderElement = document.querySelector(".sender")
+
+
 
 var input1 = document.getElementById("search1")
 var input2 = document.getElementById("search2")
@@ -89,6 +94,11 @@ function showError() {
     tempElement.innerHTML=`- °<span>C<span>`
     descElement.innerHTML=`-`
     locationElement.innerHTML=`-`
+    weather.event = "No Alerts"
+    weather.sender = ""
+    weather.alertDesc = ""
+    weather.start = ""
+    weather.end = ""
 }
 
 // gets the longitude and latitude of a city for the API call that provides all the info (current, hourly, alerts)
@@ -131,6 +141,24 @@ function getSearchWeather(){
         if (data.cod === "404") {
             showError()
         }
+        
+        if (data.hasOwnProperty('alerts')) {
+            let alerts = data.alerts[0]
+            weather.event = alerts.event
+            weather.sender = alerts.sender_name
+            weather.alertDesc = alerts.description
+            weather.start = "Time: " +timestampToTime(alerts.start)
+            weather.end = " - " + timestampToTime(alerts.end)
+        }
+
+        else {
+            weather.event = "No Alerts"
+            weather.sender = ""
+            weather.alertDesc = ""
+            weather.start = ""
+            weather.end = ""
+        }
+
         weather.temperature.value=Math.floor(data.current.temp -KELVIN)
         weather.description=data.current.weather[0].description
         weather.iconID=data.current.weather[0].icon
@@ -161,6 +189,24 @@ function getWeather(latitude,longitude){
         return data
     })
     .then(function(data){
+        
+        if (data.hasOwnProperty('alerts')) {
+            let alerts = data.alerts[0]
+            weather.event = alerts.event
+            weather.sender = alerts.sender_name
+            weather.alertDesc = alerts.description
+            weather.start = "Time: " +timestampToTime(alerts.start)
+            weather.end = " - " + timestampToTime(alerts.end)
+        }
+
+        else {
+            weather.event = "No Alerts"
+            weather.sender = ""
+            weather.alertDesc = ""
+            weather.start = ""
+            weather.end = ""
+        }
+        
         weather.temperature.value=Math.floor(data.current.temp -KELVIN)
         weather.description=data.current.weather[0].description
         weather.iconID=data.current.weather[0].icon
@@ -199,6 +245,10 @@ function displayWeather() {
     tempElement.innerHTML=`${weather.temperature.value} °<span>C<span>`
     descElement.innerHTML=weather.description
     locationElement.innerHTML=`${weather.city}, <span>${weather.country}<span>`
+    eventElement.innerHTML= `${weather.event}`
+    senderElement.innerHTML=`${weather.sender}`
+    alertElement.innerHTML=`${weather.alertDesc}<br><br> ${weather.start} ${weather.end}`
+
 }
 
 
