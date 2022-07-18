@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<body>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +14,13 @@
             <input id="search1"
             type="text"
             placeholder="Enter a city"
-            autocomplete="off">
+            autocomplete="off"
+            required>
             <input id="search2"
             type="text"
             placeholder="Enter the country code"
-            autocomplete="off">
+            autocomplete="off"
+            required>
             <div class="location-icon">
                 <img src="icons/locationIcon.jpg" alt="">
 
@@ -25,11 +28,24 @@
         </div>
         
         <div class="notification"></div>
-        <div class="weather-container">
-            <div class="weather-icon">
-                <img src="icons/unknownIcon.png" alt="" style="width: 128px; height: 128px;">
+
+        <!-- info section -->
+        <div class="row">
+            <!-- hourly -->
+            <div class="column">
+                <h2>Hourly Forecast</h2>
+                <div class="scrollmenu">
+                    <div1 id="hourly-forecast"></div1>
+                </div>
             </div>
 
+            
+            <!-- current -->
+            <div class="column">
+                <h2>Current Weather</h2>
+                <div class="weather-icon">
+                    <img src="icons/unknownIcon.png" alt="" style="width: 128px; height: 128px;">
+                </div>
                 <div class="temperature-value">
                     <p>- °<span>C</span></p>
                 </div>
@@ -39,8 +55,23 @@
                 <div class="location">
                     <p>-</p>
                 </div>
+            </div>
+            
+            <!-- alerts -->
+            <div class="column">
+                <h2>Alerts</h2>
+                <div class="event">
+                    <p><u><b>No Alerts</b></u> </p>
+                </div>
+                <div class="sender">-</div>
+                <div class="alert-description">-</div>
+            </div>
         </div>
+        
+        
+
     </div>
     <script src="app.js"></script>
 </body>
 </html>
+

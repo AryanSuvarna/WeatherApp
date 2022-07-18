@@ -1,20 +1,21 @@
 /* for every location, we use this font */
 * {
     font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
 }
 
 body{
-    background-image: url(city.jpg);
     background-color: steelblue;
     height: 800px;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
 }
 /* use dot here because it is the class type. (see index.html for container)*/
 .container {
     width: 70%;
     background-color: white;
+    opacity: 0.93;
     align-self: center;
     display: block;
     margin: 100px auto;
@@ -25,8 +26,9 @@ body{
 
 /* use dot here because it is the class type. */
 .app-title {
+    opacity: 1;
     width: 100%;
-    height: 150px;
+    height: 180px;
     border-radius: 10px 10px 0 0;
     display: flex;
     align-items: center;
@@ -35,38 +37,43 @@ body{
 }
 
 .app-title p {
+    opacity: 1;
     text-align: center;
     padding: 15px;
     margin: 0 auto;
-    font-size: 1.2em;
+    font-size: 2.2em;
     color: #333;
 }
 /* use # for id's */
 #search1 {
+    opacity: 1;
     display: block;
     margin-left: auto;
     margin-right: auto;
     padding: 5px;
     width: 30%;
-    height: 20px;
+    height: 35px;
     border-radius: 5px;
     outline: none;
-    border: 3px solid steelblue;
+    border: 3px solid black;
 }
 
 #search2 {
+    opacity: 1;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 5px;
     padding: 5px;
     width: 30%;
-    height: 20px;
+    height: 35px;
     border-radius: 5px;
     outline: none;
-    border: 3px solid steelblue;
+    border: 3px solid black;
 }
 
 .notification {
+    opacity: 1;
     background-color: white;
     display: none;
 }
@@ -79,14 +86,8 @@ body{
     padding: 10px 0;
 }
 
-.weather-container {
-    width: 100%;
-    height: 250px;
-    background-color: white;
-    margin-top: 20px;
-}
-
 .weather-icon{
+    opacity: 1;
     width: 100%;
     height: 120px;
 }
@@ -145,8 +146,13 @@ body{
     color: darkgray;
     text-align: center;
     font-size: 0.8em;
+    text-transform: capitalize;
 }
 
+.location span {
+    color: darkgray;
+    text-transform: uppercase; 
+}
 div.relative {
     position: absolute;
     top: 600px;
@@ -157,4 +163,120 @@ div.relative {
     margin: 20px;
     padding: 0;
     text-align: center;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding-top: 5px;
+    padding-bottom: 340px;
+    height: 150px;
+    border-left: 0.25px solid black;
+    border-right: 0.25px solid black;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 1100px) {
+    .column {
+      width: 100%;
+    }
+}
+
+h2 {
+    text-align: center;
+}
+
+
+.scrollmenu {
+    background-color: white;
+    overflow: auto;
+    white-space: nowrap;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+  
+.scrollmenu div{
+    display: inline-block;
+    color: black;
+    text-align: left;
+    padding: 0px 10px;
+    margin: 0 5px;
+    border-radius: 10px;
+    border: 3px solid black;
+
+    text-decoration: none;
+}
+
+
+.hourly-container {
+    opacity: 1;
+    width: 150px;
+    height: 250px;
+    background-color: white;
+}
+
+.hourly-container h1 {
+    padding: 0;
+    margin: 0;
+    color: darkgray;
+    font-size: 2.7em;
+    text-align: center;
+}
+
+.hourly-container h2 {
+    padding: 0;
+    margin: 0;
+    color: darkgray;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.hourly-container span {
+    color: darkgray;
+    font-size: 0.5em; 
+}
+
+
+.hourly-container p {
+    padding: 4px  0px 0px 0px;
+    margin: 0;
+    color: darkgray;
+    font-size: .8em;
+    text-align: center;
+}
+
+.event {
+    margin: 0 10px;
+    text-align: center;
+    border: 2px solid red;
+    color: red;
+}
+
+.sender {
+    padding: 3px;
+    margin-left: 3px;
+    text-align: center;
+    color: red;
+}
+
+.alert-description {
+    margin: 10px 15px 25px;
+    height: 250px;
+    width: 420px;
+    text-align: left;
+    overflow: auto;
+    font-size: 0.8em;
+}
+
+.alert-description p {
+    margin-bottom: 5px;
+    text-align: left;
+
 }
