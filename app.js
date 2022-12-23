@@ -22,9 +22,6 @@ let longitude = 0.0
 input1.addEventListener("keyup", function(event) {
     if(event.keyCode ===13){
         event.preventDefault();
-
-        weather.city=input1.value
-        console.log(weather.city)
         input2.focus()
     }
 })
@@ -34,6 +31,8 @@ input2.addEventListener("keyup", function(event) {
         event.preventDefault();
 
         weather.country=input2.value
+        weather.city=input1.value
+        console.log(weather.city)
         console.log(weather.country)
         getLatLong()
         
@@ -87,7 +86,7 @@ locationIcon.addEventListener("click", function(event){
 })
 
 function showError() {
-    hourly.innerHTML= ""; //removes all childs elements of hourlyK
+    hourly.innerHTML= ""; //removes all childs elements of hourly
     notificationElement.style.display="block"
     notificationElement.innerHTML=`<p> Error: User denied geolocation or invalid location</p>`
     iconElement.innerHTML=`<img src="icons/unknownIcon.png" style="width:128px;height:128px;">`
