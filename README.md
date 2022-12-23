@@ -24,7 +24,7 @@ When you open the page, there will be a pop requesting that you let the browser 
 After allowing the browser to know your current location, the app will display your current location's current temperature, any alerts as well as the next 24-hour forecast 
 ![](/images/currentLocation.png)
 
-### Examples of other cities' weather\
+### Examples of other cities' weather
 (P.S the background changes to something that relates to the city you are looking up the forecast for)
 ![](/images/mumbaiWeather.png)
 ![](/images/moscowWeather.png)
